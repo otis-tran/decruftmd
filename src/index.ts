@@ -6,6 +6,7 @@ import { requireApiKey } from './auth';
 import { renderConsentPage } from './oauth-consent';
 import { verifyKeyConstantTime } from './auth';
 import type { OAuthHelpers } from '@cloudflare/workers-oauth-provider';
+import { renderWebUi } from './ui';
 
 export interface ExtendedEnv extends Env {
   OAUTH_PROVIDER?: OAuthHelpers;
@@ -14,7 +15,7 @@ export interface ExtendedEnv extends Env {
 const app = new Hono<{ Bindings: ExtendedEnv }>();
 app.use('*', requireApiKey);
 
-app.get('/', (c) => c.text('decruftmd — GET /https://example.com or POST /api/convert'));
+app.get('/', (c) => c.html(renderWebUi()));
 
 app.post('/api/convert', async (c) => {
   let body: Record<string, unknown>;
