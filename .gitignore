@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.wrangler/
+.cloudflare/
+.dev.vars*
+.env
+.secrets*
+.env.*
+!.env.example
+coverage/
+*.tsbuildinfo
+.DS_Store
+
+# Local comparison captures may contain scraped page content.
+artifacts/
+
+#
+plans/*
