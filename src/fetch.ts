@@ -32,7 +32,15 @@ export async function fetchBounded(
     for (let redirects = 0; ; redirects++) {
       let response: Response;
       try {
-        response = await fetch(target, { redirect: 'manual', signal: controller.signal });
+        response = await fetch(target, {
+          redirect: 'manual',
+          signal: controller.signal,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 (compatible; decruftmd/1.0; +https://github.com/otis-tran/decruftmd)',
+            Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
+          },
+        });
       } catch (error) {
         if (controller.signal.aborted) throw new HttpError(504, 'fetch_timeout', 'Upstream request timed out');
         throw new HttpError(502, 'fetch_failed', 'Unable to fetch upstream resource');
