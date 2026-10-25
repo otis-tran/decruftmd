@@ -18,7 +18,9 @@ Every endpoint except the root health check (`GET /`) requires a Bearer token:
 
 - `GET /https://example.com/article?images=true` returns Markdown with `X-Cache: HIT|MISS`.
 - `POST /api/convert` JSON: `{ "url": "https://example.com/article", "analyze_images": false, "max_images": 3 }`. Returns `{ok,cached,title,domain,word_count,markdown,images_analyzed}`.
-- `POST /mcp`: JSON-RPC MCP endpoint over HTTP (`initialize`, `ping`, `tools/list`, `tools/call` for `read_url`). AI clients (Claude Desktop, Cursor, MCP clients) connect using `POST /mcp` with an `Authorization: Bearer <API_KEY>` header.
+- `POST /mcp`: JSON-RPC MCP endpoint over HTTP (`initialize`, `ping`, `tools/list`, `tools/call` for `read_url`).
+  - **For Desktop AI Clients (Claude Code, Cursor):** Send `Authorization: Bearer <API_KEY>` directly to `POST /mcp`.
+  - **For ChatGPT Web (Custom MCP Server):** Select **OAuth** authentication in ChatGPT settings. ChatGPT will automatically discover endpoints at `/.well-known/oauth-authorization-server` and open the popup consent screen at `/oauth/authorize`. Enter your master `API_KEY` to approve the connection.
 Only public HTTP(S) URLs with standard ports are accepted. Image analysis is optional; if Workers AI is missing or image processing fails, the text conversion still succeeds. Cache TTL is 3600 seconds when bound.
 
 ## Compare tokens for one URL

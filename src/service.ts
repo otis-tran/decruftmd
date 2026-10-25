@@ -6,7 +6,9 @@ import { enrichImages } from './vision';
 export interface Env {
   API_KEY?: string;
   CACHE?: KVNamespace;
+  OAUTH_KV?: KVNamespace;
   AI?: { run(model: string, input: unknown): Promise<unknown> };
+  PUBLIC_URL?: string;
 }
 
 export interface Conversion {

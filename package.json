@@ -10,6 +10,7 @@
     "compare": "tsx scripts/compare-url.ts"
   },
   "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^1.2.4",
     "defuddle": "^0.19.4",
     "hono": "^4.13.9",
     "js-tiktoken": "^1.0.21",
